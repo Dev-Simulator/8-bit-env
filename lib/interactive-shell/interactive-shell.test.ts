@@ -61,8 +61,9 @@ describe('getSelectionOptions', () => {
   it('returns init option only when root folder does not exist', () => {
     mockFs({})
     const options = getSelectionOptions()
-    expect(options.length).toBe(1)
+    expect(options.length).toBe(2)
     expect(options[0].name).toContain('init')
+    expect(options[1].name).toContain('quit')
   })
 
   it('returns init option only when no master.key is present', () => {
@@ -70,8 +71,9 @@ describe('getSelectionOptions', () => {
       [ROOT_ENV_FOLDER_NAME]: {},
     })
     const options = getSelectionOptions()
-    expect(options.length).toBe(1)
+    expect(options.length).toBe(2)
     expect(options[0].name).toContain('init')
+    expect(options[1].name).toContain('quit')
   })
 
   it('returns create option only when no encrypted or env files exist', () => {
@@ -81,8 +83,9 @@ describe('getSelectionOptions', () => {
       },
     })
     const options = getSelectionOptions()
-    expect(options.length).toBe(1)
+    expect(options.length).toBe(2)
     expect(options[0].name).toContain('create')
+    expect(options[1].name).toContain('quit')
   })
 
   it('returns create & save options only when no encrypted files exist', () => {
@@ -94,9 +97,10 @@ describe('getSelectionOptions', () => {
       },
     })
     const options = getSelectionOptions()
-    expect(options.length).toBe(2)
+    expect(options.length).toBe(3)
     expect(options[0].name).toContain('create')
     expect(options[1].name).toContain('save')
+    expect(options[2].name).toContain('quit')
   })
 
   it('returns create, expose & update options only when no env files exist', () => {
@@ -110,10 +114,11 @@ describe('getSelectionOptions', () => {
       },
     })
     const options = getSelectionOptions()
-    expect(options.length).toBe(3)
+    expect(options.length).toBe(4)
     expect(options[0].name).toContain('create')
     expect(options[1].name).toContain('update')
     expect(options[2].name).toContain('expose')
+    expect(options[3].name).toContain('quit')
   })
 
   it('returns all other options when folder does exist', () => {

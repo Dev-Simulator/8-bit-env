@@ -36,7 +36,7 @@ const expose = (environmentName: string, exportPath: string): void => {
   try {
     fs.writeFileSync(exportPath, decrypt(environmentName, encryptedFileData))
     console.log(
-      `Decrypting ${successText(environmentName)} to ${errorText(exportPath)}`
+      `Decrypting ${successText(environmentName)} to ${successText(exportPath)}`
     )
   } catch (e) {
     console.log(errorText(e))

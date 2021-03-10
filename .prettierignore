@@ -4,3 +4,4 @@ node_modules
 .gitignore
 .prettierignore
 .eslintignore
+assets

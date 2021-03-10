@@ -43,11 +43,14 @@ const parseCommands = async (args: string[]) => {
       init()
       break
     case 'create':
-      create(formatRawEnvironmentNamesList(args[0]))
+      if (args[1]) create(formatRawEnvironmentNamesList(args[1]))
+      else
+        throw '\n\nYou need to provide a comma separated list of environment names to create, ex: "8bitenv create development,staging,production"\n\n'
       break
     case 'expose':
       if (args[1] && args[2]) expose(args[1], args[2])
-      else throw 'Invalid args for expose'
+      else
+        throw '\n\nInvalid args for expose, you need to pass in the environment you want to expose and a path to where you want to expose it. Ex: "8bitenv expose staging .env"\n\n'
       break
     default:
       'Invalid arguments'

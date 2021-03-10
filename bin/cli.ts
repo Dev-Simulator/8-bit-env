@@ -1,10 +1,6 @@
-import save from './save/save'
-import update from './update/update'
-import expose from './expose/expose'
-import init from './init/init'
+#!/usr/bin/env node
 import { Command } from 'commander'
-import create from './create/create'
-import runner from './runner/runner'
+import runner from '../lib/runner/runner'
 
 const program = new Command()
 program
@@ -21,5 +17,3 @@ program
   )
 program.parse(process.argv)
 runner(program.args)
-
-export { save, update, expose, init, create }

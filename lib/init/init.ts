@@ -28,10 +28,27 @@ export default async (): Promise<void> => {
   fs.writeFileSync(MASTER_KEY_PATH, masterKey)
   console.log(`\n- Created ${successText(MASTER_KEY_RELATIVE_PATH)} file`)
 
-  fs.appendFileSync(GITIGNORE_PATH, `\n${MASTER_KEY_RELATIVE_PATH}`)
+  const hasGitignore = fs.existsSync(GITIGNORE_PATH)
+  if (!hasGitignore) {
+    fs.appendFileSync(
+      GITIGNORE_PATH,
+      `\n${MASTER_KEY_RELATIVE_PATH}\n${ROOT_ENV_FOLDER_NAME}/*.env`
+    )
+  } else {
+    const gitignoreText = fs.readFileSync(GITIGNORE_PATH)
+    if (gitignoreText.indexOf(MASTER_KEY_RELATIVE_PATH) === -1) {
+      fs.appendFileSync(GITIGNORE_PATH, MASTER_KEY_RELATIVE_PATH)
+    }
+    if (gitignoreText.indexOf(`${ROOT_ENV_FOLDER_NAME}/*.env`) === -1) {
+      fs.appendFileSync(GITIGNORE_PATH, `\n${ROOT_ENV_FOLDER_NAME}/*.env`)
+    }
+  }
+
   console.log(`- Added ${successText(MASTER_KEY_RELATIVE_PATH)} to .gitignore`)
 
-  console.log(boldText('\n\nStep 2: Define your execution environments'))
+  console.log(
+    boldText('\n\nStep 2: Define your execution environments (optional)')
+  )
 
   console.log(
     'All the different environments where your app will run (eg. development, staging, production)\n'

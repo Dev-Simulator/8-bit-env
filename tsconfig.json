@@ -10,5 +10,5 @@
     "preserveConstEnums": true,
     "noImplicitThis": false
   },
-  "include": ["src/**/*"]
+  "include": ["lib/**/*", "bin/**/*"]
 }

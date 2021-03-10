@@ -1,6 +1,8 @@
-# 8 Bit Env
+![logo](https://user-images.githubusercontent.com/13106307/110695039-00589f80-81af-11eb-8f04-dcfca384075f.png)
 
-8 Bit Env helps you easily manage, securely store and expose all of the environment variables and sensitive keys you need for your app.
+8 Bit Env helps you easily manage, securely store and expose all of the environment variables and sensitive keys you need for your app. It also let's you store all your environment data next to your code in version control.
+
+## Installation
 
 ```bash
 # with npm
@@ -12,107 +14,101 @@ yarn add -D 8-bit-env
 
 ## Usage
 
-Run the init script at the root directory of your project. It will create an `.8bitenv` folder and a `.8bitenv/master.key` file:
+8 Bit Env has an interactive command line tool which is the easiest way to use it:
 
 ```bash
-8bitenv init
+npx 8-bit-env
 ```
 
-Inside `.8bitenv/master.key`, add a string of text which will be used as a key for encrypting/decrypting your environment variable files. You'll also want to add `.8bitenv/master.key` to your `.gitignore` (**do not check this file into version control**)
+### Initializing 8 Bit Env
 
-```bash
-# adds the key to master.key
-printf "your_secret_key" > .8bitenv/master.key
+![8-bit-env-init](https://user-images.githubusercontent.com/13106307/110694325-1023b400-81ae-11eb-8c73-2e63c1fee516.gif)
 
-# adds master.key to your .gitignore file
-printf ".8bitenv/master.key" >> .gitignore
+When you run the init script you'll first be asked to provide a master key. The master key is what 8 Bit Env uses to encrypt all of your environment data, it's essentially a password.
 
-```
+Once you enter your master key, 8 Bit Env will create a folder at the root directory of your project called `.8-bit-env` and put the master key inside in a file called `master.key`. This file will then be added to your .gitignore file along with an entry for any environment files.
 
-> Make sure you remember this key, you'll need it anytime you or anyone else sets up your codebase in the future.
+You'll then be asked to enter the names of the environments you want to store environment data for. In the example above, we're creating two, `development` and `staging`.
 
-### Adding Environment Variables
+A `*.env` file will be created for each environment and stored inside the `.8-bit-env` folder.
 
-For the purposes of this example, we'll assume your project has 3 execution environments that you'll need to set variables for, `development`, `staging` & `production`.
+### Adding & Saving Environment Variables
 
-Inside `.8bitenv/` create 3 files:
+![8-bit-env-save](https://user-images.githubusercontent.com/13106307/110694356-187bef00-81ae-11eb-8f7c-5e36df0885eb.gif)
 
-- `development.env`
-- `staging.env`
-- `production.env`
+Inside the `*.env` files you created in the last step, you can place any environment variables or pieces of info you need to keep track of. Once it's all in there, run the `save` command.
 
-Inside each file, place any relevant environment variables for your codebase:
+When you save the files, they will be encrypted using the key inside `master.key` and stored as `*.enc` files in the `.enc/` folder. The original `*.env` files will then be deleted (better not to have these lying around).
 
-**development.env**
-
-```env
-BASE_URL=http://localhost:4000
-STRIPE_KEY=sk_1234
-```
-
-**staging.env**
-
-```env
-BASE_URL=https://staging.myapp.com/
-STRIPE_KEY=sk_1234
-```
-
-**production.env**
-
-```env
-BASE_URL=https://myapp.com/
-STRIPE_KEY=sk_5678
-```
-
-Each file should have a descriptive name which describes the environment it's storing values for.
-
-### Encrypting Environment Variables
-
-Once you have your environment variables inside their appropriate `*.env` files, it's time to encrypt everything. You want to encrypt all this information so that it can be stored in version control along with the rest of your code.
-
-```bash
-8bitenv save
-```
-
-The `save` command above will encrypt, and then delete each `*.env` file you created in the previous step.
-
-Each encrypted file will be stored in `.8bitenv/.enc/` and will have the same name as it did before being encrypted, but with a `.enc` extension instead of `.env`.
-
-- `.8bitenv/development.env` -> `.8bitenv/.enc/development.enc`
-- `.8bitenv/staging.env` -> `.8bitenv/.enc/staging.enc`
-- `.8bitenv/production.env` -> `.8bitenv/.enc/production.enc`
-
-All of these files can now be safely check into version control
+These encrypted files can be safely checked into version control.
 
 ### Updating Environment Variables
 
-```
-8bitenv update
-```
+![8-bit-env-update](https://user-images.githubusercontent.com/13106307/110694384-1fa2fd00-81ae-11eb-9b49-fac0b08c0334.gif)
 
-The `update` command will decrypt all the encrypted files in `.8bitenv/.enc` and convert them back into editable `*.env` files.
+When it's time to update your environment variables, simply run the `update` function which will decrypt all of the encrypted environment files using the key inside `master.key`, and output them as `*.env` files in the `.8-bit-env` folder.
 
-All you need to do is update each file with the new values and the run `8bitenv save` again.
+> When decrypting these files, it's important the the key inside `master.key` is the same as when you encrypted them.
+
+Once you have the `*.env` files, you can make any changes you need to make and then run the save function again.
 
 ### Exposing Environment Variables
 
-The `expose` command will decrypt variables from one environment and place them into a file at a specified location.
+![8-bit-env-expose](https://user-images.githubusercontent.com/13106307/110694400-2598de00-81ae-11eb-9cf4-aebecb0a0650.gif)
+
+Eventually, you'll want to use these environment variables when you run your code, and depending on the environment you're running in, you'll want to use different ones.
+
+Running `expose` will allow you to export the variables for a specific environment into a file of your choosing.
+
+A common situation where this will come in handy is when using [dotenv](https://www.npmjs.com/package/dotenv). Dotenv expects a file called `.env` at the root directory of your project, which it will load environment variables from. You can, for example, use `expose` to place all your development variables in a `.env` file, which `dotenv` will pick up on.
+
+### Creating new Environments
+
+![8-bit-env-create](https://user-images.githubusercontent.com/13106307/110694421-2c275580-81ae-11eb-8afc-3785b2f711d4.gif)
+
+If you want to add a new environment, simply run the `create` command, which will create a `*.env` file for you in the `.8-bit-env` folder.
+
+## Running from the command line
+
+The usage section above demonstrates how to use 8 Bit Env with the interactive terminal app, but it can also be run with simple command line commands.
 
 ```bash
-8bitenv expose env_name path/to/env/file
+npx 8-bit-env init
+npx 8-bit-env save
+npx 8-bit-env update
+npx 8-bit-env expose <envNameToExpose> <targetFile>
+npx 8-bit-env create <envName1,envName2,envName3>
 ```
 
-`expose` takes two arguments:
+Depending on the state of your environment files, you may not be able to perform all of these. For example, if you don't have any encrypted environment files, you can't `expose` or `update`.
 
-- `env_name` - The name of the environment who's variables you want to expose. This is just the name of the file that you stored them in (eg. `development`, `staging`, `production`).
-- `path/to/env/file` - Path of the file you want the exposed variables to be stored in, relative to the root directory of the project.
+## Running in Code
 
-So:
+8 Bit Env exports functions for `init`, `save`, `update`, `expose` and `create`.
 
-```bash
-# places the staging variables into a file
-# called .env at the root dir of the project
-8bitenv expose staging .env
+```js
+import { init, save, update, expose, create } from '8-bit-env'
+
+// initialize 8 bit env
+init()
+
+// save any *.env files
+save()
+
+// decrypt all encrypted environment files
+update()
+
+// export a particular environments variables to a file
+expose('environmentName', 'path/to/export')
+
+// create new environment files
+create(['envName1', 'envName2'])
 ```
 
-Once the variables are exposed, a library like [dotenv](https://www.npmjs.com/package/dotenv) can be used to load them into your app inside `process.env`, or you can simply copy them into your hosting platform's environment variables section.
+## Managing the Master Key
+
+Anytime your code is pulled down from version control, you'll have to add in the master key again. It's important that the master key is consistant, whetever key you used when you saved the environment files, is the one you need to decrypt them.
+
+Easily add the master key back in by running the `init` command, or simply adding a file called `master.key` to `.8-bit-env`
+
+If you want to change the master key, simply run the `update` command to decrypt all your environment files, then change the key and run `save`.

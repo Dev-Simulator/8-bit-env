@@ -38,8 +38,17 @@ describe('parseCommands', () => {
   it('calls create when selection is create', async () => {
     const createSpy = jest.spyOn(createExports, 'default')
     createSpy.mockImplementation(() => new Promise((res) => res()))
-    await parseCommands(['create'])
+    await parseCommands(['create', 'staging,production'])
     expect(createSpy).toHaveBeenCalled()
+  })
+  it('create throws error when no environment names are passed in', async () => {
+    let errorThrew = false
+    try {
+      await parseCommands(['create'])
+    } catch (e) {
+      errorThrew = true
+    }
+    expect(errorThrew).toBe(true)
   })
   it('calls expose when selection is expose', async () => {
     const exposeSpy = jest.spyOn(exposeExports, 'default')
@@ -104,7 +113,7 @@ describe('when root dir is not initialized', () => {
   it('throws error when create is called', async () => {
     let errorThrew = false
     try {
-      await parseCommands(['create'])
+      await parseCommands(['create', 'staging,production'])
     } catch (e) {
       errorThrew = true
     }
@@ -138,7 +147,7 @@ describe('when no encrypted or env files are present', () => {
   it('can call create', async () => {
     const createSpy = jest.spyOn(createExports, 'default')
     createSpy.mockImplementation(() => new Promise((res) => res()))
-    await parseCommands(['create'])
+    await parseCommands(['create', 'staging,production'])
     expect(createSpy).toHaveBeenCalled()
   })
 
@@ -198,7 +207,7 @@ describe('when no encrypted files are present', () => {
   it('can call create', async () => {
     const createSpy = jest.spyOn(createExports, 'default')
     createSpy.mockImplementation(() => new Promise((res) => res()))
-    await parseCommands(['create'])
+    await parseCommands(['create', 'staging,production'])
     expect(createSpy).toHaveBeenCalled()
   })
 
@@ -256,7 +265,7 @@ describe('when no environment files are present', () => {
   it('can call create', async () => {
     const createSpy = jest.spyOn(createExports, 'default')
     createSpy.mockImplementation(() => new Promise((res) => res()))
-    await parseCommands(['create'])
+    await parseCommands(['create', 'staging,production'])
     expect(createSpy).toHaveBeenCalled()
   })
 
