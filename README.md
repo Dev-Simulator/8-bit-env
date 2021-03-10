@@ -13,6 +13,8 @@ npm i -D 8-bit-env
 # or with yarn
 yarn add -D 8-bit-env
 ```
+<br />
+
 ## Usage
 
 8 Bit Env has an interactive command line tool which is the easiest way to use it:
@@ -20,6 +22,7 @@ yarn add -D 8-bit-env
 ```bash
 npx 8-bit-env
 ```
+<br />
 
 ## Initializing 8 Bit Env
 
@@ -35,6 +38,8 @@ You'll then be asked to enter the names of the environments you want to store en
 
 A `*.env` file will be created for each environment and stored inside the `.8-bit-env` folder.
 
+<br />
+
 ## Adding & Saving Environment Variables
 
 <br />
@@ -46,6 +51,8 @@ Inside the `*.env` files you created in the last step, you can place any environ
 When you save the files, they will be encrypted using the key inside `master.key` and stored as `*.enc` files in the `.enc/` folder. The original `*.env` files will then be deleted (better not to have these lying around).
 
 These encrypted files can be safely checked into version control.
+
+<br />
 
 ## Updating Environment Variables
 
@@ -59,6 +66,8 @@ When it's time to update your environment variables, simply run the `update` fun
 
 Once you have the `*.env` files, you can make any changes you need to make and then run the save function again.
 
+<br />
+
 ## Exposing Environment Variables
 
 <br />
@@ -70,6 +79,8 @@ Eventually, you'll want to use these environment variables when you run your cod
 Running `expose` will allow you to export the variables for a specific environment into a file of your choosing.
 
 A common situation where this will come in handy is when using [dotenv](https://www.npmjs.com/package/dotenv). Dotenv expects a file called `.env` at the root directory of your project, which it will load environment variables from. You can, for example, use `expose` to place all your development variables in a `.env` file, which `dotenv` will pick up on.
+
+<br />
 
 ## Creating new Environments
 
@@ -93,6 +104,8 @@ npx 8-bit-env create <envName1,envName2,envName3>
 
 Depending on the state of your environment files, you may not be able to perform all of these. For example, if you don't have any encrypted environment files, you can't `expose` or `update`.
 
+<br />
+
 ## Running in Code
 
 8 Bit Env exports functions for `init`, `save`, `update`, `expose` and `create`.
@@ -115,6 +128,8 @@ expose('environmentName', 'path/to/export')
 // create new environment files
 create(['envName1', 'envName2'])
 ```
+
+<br />
 
 ## Managing the Master Key
 
