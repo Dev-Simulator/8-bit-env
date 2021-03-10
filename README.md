@@ -1,5 +1,7 @@
 ![logo](https://user-images.githubusercontent.com/13106307/110695039-00589f80-81af-11eb-8f04-dcfca384075f.png)
+
 <br />
+
 8 Bit Env helps you easily manage, securely store and expose all of the environment variables and sensitive keys you need for your app. It also let's you store all your environment data next to your code in version control.
 
 ## Installation
@@ -20,7 +22,9 @@ npx 8-bit-env
 ```
 
 ## Initializing 8 Bit Env
+
 <br />
+
 ![8-bit-env-init](https://user-images.githubusercontent.com/13106307/110694325-1023b400-81ae-11eb-8c73-2e63c1fee516.gif)
 
 When you run the init script you'll first be asked to provide a master key. The master key is what 8 Bit Env uses to encrypt all of your environment data, it's essentially a password.
@@ -32,7 +36,9 @@ You'll then be asked to enter the names of the environments you want to store en
 A `*.env` file will be created for each environment and stored inside the `.8-bit-env` folder.
 
 ## Adding & Saving Environment Variables
+
 <br />
+
 ![8-bit-env-save](https://user-images.githubusercontent.com/13106307/110694356-187bef00-81ae-11eb-8f7c-5e36df0885eb.gif)
 
 Inside the `*.env` files you created in the last step, you can place any environment variables or pieces of info you need to keep track of. Once it's all in there, run the `save` command.
@@ -42,7 +48,9 @@ When you save the files, they will be encrypted using the key inside `master.key
 These encrypted files can be safely checked into version control.
 
 ## Updating Environment Variables
+
 <br />
+
 ![8-bit-env-update](https://user-images.githubusercontent.com/13106307/110694384-1fa2fd00-81ae-11eb-9b49-fac0b08c0334.gif)
 
 When it's time to update your environment variables, simply run the `update` function which will decrypt all of the encrypted environment files using the key inside `master.key`, and output them as `*.env` files in the `.8-bit-env` folder.
@@ -52,7 +60,9 @@ When it's time to update your environment variables, simply run the `update` fun
 Once you have the `*.env` files, you can make any changes you need to make and then run the save function again.
 
 ## Exposing Environment Variables
+
 <br />
+
 ![8-bit-env-expose](https://user-images.githubusercontent.com/13106307/110694400-2598de00-81ae-11eb-9cf4-aebecb0a0650.gif)
 
 Eventually, you'll want to use these environment variables when you run your code, and depending on the environment you're running in, you'll want to use different ones.
@@ -62,7 +72,9 @@ Running `expose` will allow you to export the variables for a specific environme
 A common situation where this will come in handy is when using [dotenv](https://www.npmjs.com/package/dotenv). Dotenv expects a file called `.env` at the root directory of your project, which it will load environment variables from. You can, for example, use `expose` to place all your development variables in a `.env` file, which `dotenv` will pick up on.
 
 ## Creating new Environments
+
 <br />
+
 ![8-bit-env-create](https://user-images.githubusercontent.com/13106307/110694421-2c275580-81ae-11eb-8afc-3785b2f711d4.gif)
 
 If you want to add a new environment, simply run the `create` command, which will create a `*.env` file for you in the `.8-bit-env` folder.
