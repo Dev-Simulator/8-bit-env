@@ -90,6 +90,8 @@ A common situation where this will come in handy is when using [dotenv](https://
 
 If you want to add a new environment, simply run the `create` command, which will create a `*.env` file for you in the `.8-bit-env` folder.
 
+<br />
+
 ## Running from the command line
 
 The usage section above demonstrates how to use 8 Bit Env with the interactive terminal app, but it can also be run with simple command line commands.
