@@ -34,11 +34,11 @@ npx 8-bit-env
 
 When you run the init script you'll first be asked to provide a master key. The master key is what 8 Bit Env uses to encrypt all of your environment data, it's essentially a password.
 
-Once you enter your master key, 8 Bit Env will create a folder at the root directory of your project called `.8-bit-env` and put the master key inside in a file called `master.key`. This file will then be added to your .gitignore file along with an entry for any environment files.
+Once you enter your master key, 8 Bit Env will create a folder at the root directory of your project called `.8bitenv` and put the master key inside in a file called `master.key`. This file will then be added to your .gitignore file along with an entry for any environment files.
 
 You'll then be asked to enter the names of the environments you want to store environment data for. In the example above, we're creating two, `development` and `staging`.
 
-A `*.env` file will be created for each environment and stored inside the `.8-bit-env` folder.
+A `*.env` file will be created for each environment and stored inside the `.8bitenv` folder.
 
 <br />
 
@@ -62,7 +62,7 @@ These encrypted files can be safely checked into version control.
 
 ![8-bit-env-update](https://user-images.githubusercontent.com/13106307/110694384-1fa2fd00-81ae-11eb-9b49-fac0b08c0334.gif)
 
-When it's time to update your environment variables, simply run the `update` function which will decrypt all of the encrypted environment files using the key inside `master.key`, and output them as `*.env` files in the `.8-bit-env` folder.
+When it's time to update your environment variables, simply run the `update` function which will decrypt all of the encrypted environment files using the key inside `master.key`, and output them as `*.env` files in the `.8bitenv` folder.
 
 > When decrypting these files, it's important the the key inside `master.key` is the same as when you encrypted them.
 
@@ -90,7 +90,7 @@ A common situation where this will come in handy is when using [dotenv](https://
 
 ![8-bit-env-create](https://user-images.githubusercontent.com/13106307/110694421-2c275580-81ae-11eb-8afc-3785b2f711d4.gif)
 
-If you want to add a new environment, simply run the `create` command, which will create a `*.env` file for you in the `.8-bit-env` folder.
+If you want to add a new environment, simply run the `create` command, which will create a `*.env` file for you in the `.8bitenv` folder.
 
 <br />
 
@@ -139,6 +139,6 @@ create(['envName1', 'envName2'])
 
 Anytime your code is pulled down from version control, you'll have to add in the master key again. It's important that the master key is consistant, whetever key you used when you saved the environment files, is the one you need to decrypt them.
 
-Easily add the master key back in by running the `init` command, or simply adding a file called `master.key` to `.8-bit-env`
+Easily add the master key back in by running the `init` command, or simply adding a file called `master.key` to `.8bitenv`
 
 If you want to change the master key, simply run the `update` command to decrypt all your environment files, then change the key and run `save`.
