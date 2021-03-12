@@ -1,6 +1,6 @@
 {
   "name": "8-bit-env",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The easiest way to manage, securely store and expose all of the environment variables and sensitive keys you need for your app.",
   "main": "dist/lib/index.js",
   "scripts": {
