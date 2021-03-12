@@ -4,7 +4,7 @@ import Cryptr from 'cryptr'
 // @ts-ignore
 import colors from 'colors' // eslint-disable-line @typescript-eslint/no-unused-vars
 
-export const ROOT_ENV_FOLDER_NAME = '.8-bit-env'
+export const ROOT_ENV_FOLDER_NAME = '.8bitenv'
 export const ROOT_ENV_FOLDER_PATH = `${process.cwd()}/${ROOT_ENV_FOLDER_NAME}`
 export const MASTER_KEY_PATH = `${ROOT_ENV_FOLDER_PATH}/master.key`
 export const MASTER_KEY_RELATIVE_PATH = `${ROOT_ENV_FOLDER_NAME}/master.key`

@@ -13,6 +13,7 @@ npm i -D 8-bit-env
 # or with yarn
 yarn add -D 8-bit-env
 ```
+
 <br />
 
 ## Usage
@@ -22,6 +23,7 @@ yarn add -D 8-bit-env
 ```bash
 npx 8-bit-env
 ```
+
 <br />
 
 ## Initializing 8 Bit Env
