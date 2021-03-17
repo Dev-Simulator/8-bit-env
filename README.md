@@ -99,7 +99,7 @@ If you want to add a new environment, simply run the `create` command, which wil
 The usage section above demonstrates how to use 8 Bit Env with the interactive terminal app, but it can also be run with simple command line commands.
 
 ```bash
-npx 8-bit-env init
+npx 8-bit-env init <master_key> [envName1,envName2,envName3]
 npx 8-bit-env save
 npx 8-bit-env update
 npx 8-bit-env expose <envNameToExpose> <targetFile>
