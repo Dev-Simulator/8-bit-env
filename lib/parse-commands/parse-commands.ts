@@ -40,7 +40,11 @@ const parseCommands = async (args: string[]) => {
       update()
       break
     case 'init':
-      init()
+      console.log(args[1])
+      if (args[1])
+        init(args[1], args[2] ? formatRawEnvironmentNamesList(args[2]) : [])
+      else
+        throw '\n\nYou need to provide a master key and optional environment names (comma separated: envName1,envName2,envName3)\n\n'
       break
     case 'create':
       if (args[1]) create(formatRawEnvironmentNamesList(args[1]))

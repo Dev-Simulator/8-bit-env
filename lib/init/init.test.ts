@@ -38,6 +38,22 @@ describe('init', () => {
     prompt.input = backupInput
   })
 
+  it('uses passed in env names and mater key if present', async () => {
+    const backupInput = prompt.input
+    prompt.input = () =>
+      Promise.resolve('  DevelOPmEnt , pro DUct  ion,  s taging')
+    await init('my_master_key', ['custom_env_name'])
+
+    const filesExist = fs.existsSync(
+      `${ROOT_ENV_FOLDER_PATH}/custom_env_name.env`
+    )
+
+    const masterKeyFileText = fs.readFileSync(MASTER_KEY_PATH, 'utf-8')
+    expect(filesExist).toBe(true)
+    expect(masterKeyFileText).toBe('my_master_key')
+    prompt.input = backupInput
+  })
+
   it(`doesn't add entries to .gitignore if they already exist`, async () => {
     const backupInput = prompt.input
     prompt.input = () => Promise.resolve('')

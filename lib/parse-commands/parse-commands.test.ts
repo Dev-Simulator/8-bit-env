@@ -70,7 +70,7 @@ describe('parseCommands', () => {
   it('calls init when selection is i', async () => {
     const initSpy = jest.spyOn(initExports, 'default')
     initSpy.mockImplementation(() => new Promise((res) => res()))
-    await parseCommands(['init'])
+    await parseCommands(['init', 'my_master_key', 'staging,production'])
     expect(initSpy).toHaveBeenCalled()
   })
 
@@ -83,11 +83,28 @@ describe('when root dir is not initialized', () => {
   beforeEach(() => {
     mockFs({})
   })
-  it('can call init', async () => {
+  it('can call init with master key & environments', async () => {
     const initSpy = jest.spyOn(initExports, 'default')
     initSpy.mockImplementation(() => new Promise((res) => res()))
-    await parseCommands(['init'])
+    await parseCommands(['init', 'my_master_key', 'staging,production'])
     expect(initSpy).toHaveBeenCalled()
+  })
+
+  it('can call init with master key only', async () => {
+    const initSpy = jest.spyOn(initExports, 'default')
+    initSpy.mockImplementation(() => new Promise((res) => res()))
+    await parseCommands(['init', 'my_master_key'])
+    expect(initSpy).toHaveBeenCalled()
+  })
+
+  it('throws error when init called without master key', async () => {
+    let errorThrew = false
+    try {
+      await parseCommands(['init'])
+    } catch (e) {
+      errorThrew = true
+    }
+    expect(errorThrew).toBe(true)
   })
 
   it('throws error when save is called', async () => {
@@ -154,7 +171,7 @@ describe('when no encrypted or env files are present', () => {
   it('can call init', async () => {
     const initSpy = jest.spyOn(initExports, 'default')
     initSpy.mockImplementation(() => new Promise((res) => res()))
-    await parseCommands(['init'])
+    await parseCommands(['init', 'my_master_key', 'staging,production'])
     expect(initSpy).toHaveBeenCalled()
   })
 
@@ -214,7 +231,7 @@ describe('when no encrypted files are present', () => {
   it('can call init', async () => {
     const initSpy = jest.spyOn(initExports, 'default')
     initSpy.mockImplementation(() => new Promise((res) => res()))
-    await parseCommands(['init'])
+    await parseCommands(['init', 'my_master_key', 'staging,production'])
     expect(initSpy).toHaveBeenCalled()
   })
 
@@ -272,7 +289,7 @@ describe('when no environment files are present', () => {
   it('throws error when init is called', async () => {
     let errorThrew = false
     try {
-      await parseCommands(['init'])
+      await parseCommands(['init', 'my_master_key', 'staging,production'])
     } catch (e) {
       errorThrew = true
     }

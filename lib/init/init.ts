@@ -14,18 +14,22 @@ import {
 import prompt from '../prompt'
 import { getEnvironmentNamesFromUser } from '../create/create'
 
-export default async (): Promise<void> => {
-  clearConsole()
-  console.log(boldText('Step 1: Create a Master Key'))
+export default async (
+  masterKey?: string,
+  environments?: string[]
+): Promise<void> => {
+  if (!masterKey) {
+    clearConsole()
+    console.log(boldText('Step 1: Create a Master Key'))
 
-  console.log(
-    'The master key will be used to encrypt all your environment data, you can think of it like a password\n'
-  )
-
-  const masterKey = await prompt.input('Master Key: ')
+    console.log(
+      'The master key will be used to encrypt all your environment data, you can think of it like a password\n'
+    )
+    masterKey = await prompt.input('Master Key: ')
+  }
 
   create8BitEnvFolderIfNotPresent()
-  fs.writeFileSync(MASTER_KEY_PATH, masterKey)
+  fs.writeFileSync(MASTER_KEY_PATH, masterKey || '')
   console.log(`\n- Created ${successText(MASTER_KEY_RELATIVE_PATH)} file`)
 
   const hasGitignore = fs.existsSync(GITIGNORE_PATH)
@@ -46,15 +50,15 @@ export default async (): Promise<void> => {
 
   console.log(`- Added ${successText(MASTER_KEY_RELATIVE_PATH)} to .gitignore`)
 
-  console.log(
-    boldText('\n\nStep 2: Define your execution environments (optional)')
-  )
-
-  console.log(
-    'All the different environments where your app will run (eg. development, staging, production)\n'
-  )
-
-  const environments = await getEnvironmentNamesFromUser()
+  if (environments === undefined) {
+    console.log(
+      boldText('\n\nStep 2: Define your execution environments (optional)')
+    )
+    console.log(
+      'All the different environments where your app will run (eg. development, staging, production)\n'
+    )
+    environments = await getEnvironmentNamesFromUser()
+  }
 
   environments.forEach((environment: string) => {
     fs.writeFileSync(`${ROOT_ENV_FOLDER_PATH}/${environment}.env`, '')
