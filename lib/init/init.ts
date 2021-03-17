@@ -41,7 +41,7 @@ export default async (
   } else {
     const gitignoreText = fs.readFileSync(GITIGNORE_PATH)
     if (gitignoreText.indexOf(MASTER_KEY_RELATIVE_PATH) === -1) {
-      fs.appendFileSync(GITIGNORE_PATH, MASTER_KEY_RELATIVE_PATH)
+      fs.appendFileSync(GITIGNORE_PATH, `\n${MASTER_KEY_RELATIVE_PATH}`)
     }
     if (gitignoreText.indexOf(`${ROOT_ENV_FOLDER_NAME}/*.env`) === -1) {
       fs.appendFileSync(GITIGNORE_PATH, `\n${ROOT_ENV_FOLDER_NAME}/*.env`)

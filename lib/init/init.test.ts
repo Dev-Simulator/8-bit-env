@@ -58,10 +58,7 @@ describe('init', () => {
     const backupInput = prompt.input
     prompt.input = () => Promise.resolve('')
     mockFs({
-      '.gitignore': `
-        ${MASTER_KEY_RELATIVE_PATH}
-        ${ROOT_ENV_FOLDER_NAME}/*.env
-      `,
+      '.gitignore': `node_modules\n${MASTER_KEY_RELATIVE_PATH}\n${ROOT_ENV_FOLDER_NAME}/*.env\ndist`,
     })
 
     await init()
@@ -70,11 +67,9 @@ describe('init', () => {
       `${ROOT_ENV_FOLDER_PATH}/../.gitignore`,
       'utf-8'
     )
-    expect(gitignoreText.indexOf(MASTER_KEY_RELATIVE_PATH)).toEqual(
-      gitignoreText.lastIndexOf(MASTER_KEY_RELATIVE_PATH)
-    )
-    expect(gitignoreText.indexOf(`${ROOT_ENV_FOLDER_NAME}/*.env`)).toEqual(
-      gitignoreText.lastIndexOf(`${ROOT_ENV_FOLDER_NAME}/*.env`)
+    console.log(gitignoreText)
+    expect(gitignoreText).toBe(
+      `node_modules\n${MASTER_KEY_RELATIVE_PATH}\n${ROOT_ENV_FOLDER_NAME}/*.env\ndist`
     )
     prompt.input = backupInput
   })
