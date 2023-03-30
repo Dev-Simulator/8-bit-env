@@ -2,7 +2,7 @@
 
 <br />
 
-8 Bit Env helps you easily manage, securely store and expose all of the environment variables and sensitive keys you need for your app. It also let's you store all your environment data next to your code in version control.
+8 Bit Env helps you easily manage, securely store and expose all of the environment variables and sensitive keys you need for your app. It also lets you store all your environment data next to your code in version control.
 
 ## Installation
 
